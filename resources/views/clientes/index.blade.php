@@ -24,6 +24,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('productos.index') }}">Productos</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('asignaciones.index') }}">Asingaciones</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -31,6 +34,16 @@
 
         <div class="card shadow-sm">
             <div class="card-body">
+                <h2>Clientes</h2>
+
+                <!-- Filtro-->
+                <form method="GET" action="{{ route('clientes.index') }}" class="mb-3">
+                    <div class="input-group">
+                        <input type="text" name="nombre" class="form-control" placeholder="Buscar" value="{{ $buscar }}">
+                        <button type="submit" class="btn btn-custom">Buscar</button>
+                    </div>
+                </form>
+
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead class="table-dark">
