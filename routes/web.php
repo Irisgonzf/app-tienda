@@ -28,3 +28,9 @@ Route::get('clientes/{id}', [\App\Http\Controllers\TiendaController::class, 'sho
 Route::get('clientes/{id}/edit', [\App\Http\Controllers\TiendaController::class, 'editCliente'])->name('clientes.edit');
 Route::put('clientes/{id}', [\App\Http\Controllers\TiendaController::class, 'updateCliente'])->name('clientes.update');
 Route::delete('clientes/{id}', [\App\Http\Controllers\TiendaController::class, 'destroyCliente'])->name('clientes.destroy');
+
+
+//asignaciones
+Route::get('asignaciones', [\App\Http\Controllers\TiendaController::class, 'indexAsignaciones'])->name('asignaciones.index');
+Route::get('asignaciones/form', [\App\Http\Controllers\TiendaController::class, 'createAsignacion'])->name('asignaciones.create');
+Route::post('asignaciones', [\App\Http\Controllers\TiendaController::class, 'storeAsignacion'])->name('asignaciones.store');

@@ -6,6 +6,7 @@ use App\Models\Cliente;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Asignacion;
 
 class TiendaController extends Controller
 {
@@ -13,8 +14,17 @@ class TiendaController extends Controller
     // Metodo CRUD para producto 
     public function index(Request $request) {
         $productos=Producto::all();
+        $query = Producto::query();
+
+    // Filtrar por nombre del producto
+    if (isset($request->nombre) && ($request->nombre !=null)) {
+        $query->where('nombre', 'like', '%' . $request->nombre . '%');
+    }
+
+    $productos = $query->get();
         return View('productos.index',[
-            'productos'=>$productos
+            'productos'=>$productos,
+            'buscar' => $request->nombre,
         ]);
     }
     
@@ -73,8 +83,17 @@ class TiendaController extends Controller
     // Metodo CRUD para cliente
     public function indexCliente(Request $request) {
         $clientes=Cliente::all();
+        $query = Cliente::query();
+
+        // Filtrar por nombre del cliente
+        if (isset($request->nombre) && ($request->nombre !=null)) {
+            $query->where('nombre', 'like', '%' . $request->nombre . '%');
+        }
+        $clientes = $query->get();
+
         return View('clientes.index',[
-            'clientes'=>$clientes
+            'clientes'=>$clientes,
+            'buscar'=>$request->nombre,
         ]);
     }
     
@@ -133,6 +152,53 @@ class TiendaController extends Controller
         return Redirect::to('clientes');
     }
     
-    
+    // Asignaciones 
+    public function indexAsignaciones()
+    {
+        $asignaciones = Asignacion::with(['cliente', 'producto'])->get();
+        return view('asignaciones.index',[
+            'asignaciones'=> $asignaciones
+        ]);
+    }
+
+    public function createAsignacion()
+    {
+        $clientes = Cliente::all();
+        $productos = Producto::all();
+        return view('asignaciones.create',[
+            'clientes' => $clientes,
+            'productos' => $productos
+        ]);
+    }
+
+    public function storeAsignacion(Request $request)
+    {
+        $clienteId = $request->cliente_id;
+        $productoId = $request->producto_id;
+        $cantidad = $request->cantidad;
+
+        $producto = Producto::find($productoId);
+
+        // Compruebo que el producto existe
+        if (!$producto) {
+            return Redirect::route('asignaciones.create');
+        }
+
+        //Compruebo que el producto tiene cantidad
+        if ($producto->cantidad < $cantidad) {
+            return Redirect::route('asignaciones.create');
+        }
+
+        //Inserto la asignacion
+        Asignacion::create([
+            'cliente_id' => $request->cliente_id,
+            'producto_id' => $request->producto_id,
+            'cantidad' => $request->cantidad,
+        ]);
+
+        $producto->cantidad -= $cantidad; //cantidad actualizada
+        $producto->save();
+        return Redirect::route('asignaciones.index');
+    }
 
 }
