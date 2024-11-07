@@ -7,6 +7,10 @@ use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Asignacion;
+use App\Exports\ProductosExport;
+use App\Exports\ClienteExport;
+use App\Exports\AsignacionExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TiendaController extends Controller
 {
@@ -76,6 +80,8 @@ class TiendaController extends Controller
     
         return Redirect::to('productos');
     }
+
+  
 
 
 
@@ -200,5 +206,22 @@ class TiendaController extends Controller
         $producto->save();
         return Redirect::route('asignaciones.index');
     }
+
+
+
+    //Exportar
+    public function exportProductos()
+    {
+        return Excel::download(new ProductosExport, 'productos.csv', \Maatwebsite\Excel\Excel::CSV);
+    }
+    public function exportClientes()
+    {
+        return Excel::download(new ClienteExport, 'clientes.csv', \Maatwebsite\Excel\Excel::CSV);
+    }
+    public function exportAsignaciones()
+    {
+        return Excel::download(new AsignacionExport, 'asignaciones.csv', \Maatwebsite\Excel\Excel::CSV);
+    }
+
 
 }

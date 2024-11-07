@@ -11,6 +11,13 @@
 
 <body>
     <div class="container mt-5 text-center">
+
+    <div class="d-flex justify-content-end">
+        <form action="{{ route('asignaciones.export') }}" method="GET">
+            <button type="submit" class="btn btn-custom exportar">Exportar todas las Asignaciones</button>
+        </form>
+    </div>
+
         <img src="Imagenes/logo.png" alt="Logo de la tienda" class="img-fluid mb-3"> 
         
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 justify-content-center">

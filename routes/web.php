@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Maatwebsite\Excel\Concerns\FromCollection;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,3 +34,9 @@ Route::delete('clientes/{id}', [\App\Http\Controllers\TiendaController::class, '
 Route::get('asignaciones', [\App\Http\Controllers\TiendaController::class, 'indexAsignaciones'])->name('asignaciones.index');
 Route::get('asignaciones/form', [\App\Http\Controllers\TiendaController::class, 'createAsignacion'])->name('asignaciones.create');
 Route::post('asignaciones', [\App\Http\Controllers\TiendaController::class, 'storeAsignacion'])->name('asignaciones.store');
+
+
+// Ruta de exportar
+Route::get('producto', [\App\Http\Controllers\TiendaController::class, 'exportProductos'])->name('productos.export');
+Route::get('cliente', [\App\Http\Controllers\TiendaController::class, 'exportClientes'])->name('clientes.export');
+Route::get('asignacion', [\App\Http\Controllers\TiendaController::class, 'exportAsignaciones'])->name('asignaciones.export');
