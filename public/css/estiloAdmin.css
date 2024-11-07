@@ -29,4 +29,7 @@ body {
     display:inline !important;
 }
 
-
+.btn-custom.exportar {
+    background-color:#212529 !important; 
+    color: white !important; 
+}
