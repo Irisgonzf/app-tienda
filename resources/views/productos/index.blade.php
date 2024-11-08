@@ -49,6 +49,7 @@
                     </div>
                 </form>
 
+            <div class="contenerdor-tabla">
                 <table class="table table-bordered">
                     <thead class="table-dark">
                         <tr>
@@ -77,6 +78,7 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
                 <div class="text-center mt-3">
                     <a href="{{ route('productos.create') }}" class="btn btn-custom">Crear Nuevo Producto</a>
                 </div>

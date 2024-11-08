@@ -13,6 +13,7 @@ class Producto extends Model
         'nombre',
         'descripcion',
         'cantidad',
+        'imagen_ruta',
     ];
 
 }

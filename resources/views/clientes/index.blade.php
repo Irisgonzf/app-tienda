@@ -50,7 +50,7 @@
                     </div>
                 </form>
 
-                <div class="table-responsive">
+                <div class="contenerdor-tabla">
                     <table class="table table-striped">
                         <thead class="table-dark">
                             <tr>
@@ -58,9 +58,6 @@
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
                                 <th class="d-none d-md-table-cell">DNI</th>
-                                <th class="d-none d-md-table-cell">Dirección</th>
-                                <th class="d-none d-md-table-cell">Teléfono</th>
-                                <th>Email</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -71,9 +68,6 @@
                                 <td>{{ $cliente->nombre }}</td>
                                 <td>{{ $cliente->apellidos }}</td>
                                 <td class="d-none d-md-table-cell">{{ $cliente->dni }}</td>
-                                <td class="d-none d-md-table-cell">{{ $cliente->direccion }}</td>
-                                <td class="d-none d-md-table-cell">{{ $cliente->telefono }}</td>
-                                <td>{{ $cliente->email }}</td>
                                 <td>
                                     <a href="{{ route('clientes.show', $cliente->id) }}" class="btn btn-info btn-sm">Ver</a>
                                     <a href="{{ route('clientes.edit', $cliente->id) }}" class="btn btn-warning btn-sm">Editar</a>

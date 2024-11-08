@@ -16,6 +16,10 @@
                 <p>ID: {{ $producto->id }}</p>
             </div>
             <div class="cuadro p-4">
+                <div class="contenido mb-3">
+                    <img src="{{ asset('imagenes/' . $producto->imagen_ruta) }}" alt="Imagen del producto" class="img-fluid">
+                </div>
+                
                 <div class="contenido  mb-3">
                     <strong>Nombre:</strong>
                     <span>{{ $producto->nombre }}</span>
