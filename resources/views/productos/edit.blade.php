@@ -15,7 +15,7 @@
             <h1>Editar Producto</h1>
         </div>
         <div class="form-section">
-            <form action="{{ route('productos.update', $producto->id) }}" method="POST">
+            <form action="{{ route('productos.update', $producto->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -33,11 +33,19 @@
                     <label for="cantidad" class="form-label">Cantidad</label>
                     <input type="number" class="form-control" id="cantidad" name="cantidad" value="{{ $producto->cantidad }}" required min="1">
                 </div>
+                
+                <div class="mb-3">
+                    <label for="imagen" class="form-label">Imagen del Producto</label>
+                    <input type="file" class="form-control" id="imagen" name="imagen">
+                </div>
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Actualizar Producto</button>
                     <a href="{{ route('productos.index') }}" class="btn btn-secondary">Cancelar</a>
                 </div>
+
+                
+
             </form>
         </div>
     </div>

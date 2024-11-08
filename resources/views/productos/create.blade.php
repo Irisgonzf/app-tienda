@@ -14,7 +14,7 @@
             <h1>Crear Nuevo Producto</h1>
         </div>
         <div class="form-section">
-            <form action="{{ route('productos.store') }}" method="POST">
+            <form action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre del Producto</label>
@@ -28,6 +28,13 @@
                     <label for="cantidad" class="form-label">Cantidad</label>
                     <input type="number" class="form-control" id="cantidad" name="cantidad" placeholder="Cantidad" required min="1">
                 </div>
+
+                
+                <div class="mb-3">
+                    <label for="imagen">Imagen:</label>
+                    <input type="file" name="imagen" id="imagen" accept="image/*" required>
+                </div>
+
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Guardar Producto</button>

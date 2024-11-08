@@ -11,6 +11,7 @@ use App\Exports\ProductosExport;
 use App\Exports\ClienteExport;
 use App\Exports\AsignacionExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\File;
 
 class TiendaController extends Controller
 {
@@ -47,10 +48,20 @@ class TiendaController extends Controller
     }
     
     public function store(Request $request) {
+
+        $validatedData = $request->validate([
+            'nombre' => 'required|max:200',
+            'descripcion' => 'required|max:80',
+            'cantidad' => 'required|min:1',
+            'imagen' => 'required', 
+        ]);
         $producto =New Producto();
         $producto->nombre = $request->nombre;
         $producto->descripcion = $request->descripcion;
         $producto->cantidad = $request->cantidad;
+        $file = $request->file('imagen');
+        $producto->imagen_ruta = $file->getClientOriginalName();
+        $file->move(public_path().'/imagenes/',$producto->imagen_ruta);
         $producto->save();
         return Redirect::to('productos');
     }
@@ -65,9 +76,22 @@ class TiendaController extends Controller
     
     public function update(Request $request, $id) {
         $producto=Producto::find($id);
+
+        $validatedData = $request->validate([
+            'nombre' => 'required|max:200',
+            'descripcion' => 'required|max:80',
+            'cantidad' => 'required|min:1',
+        ]);
+
         $producto->nombre = $request->nombre;
         $producto->descripcion = $request->descripcion;
         $producto->cantidad = $request->cantidad;
+        $file = $request->file('imagen');
+        if ($file) {
+            File::delete(public_path().'/imagenes/',$producto->imagen_ruta);
+            $producto->imagen_ruta = $file->getClientOriginalName();
+            $file->move(public_path().'/imagenes/',$producto->imagen_ruta);
+        }
         $producto->save();
         return Redirect::to('productos');
 
@@ -80,10 +104,6 @@ class TiendaController extends Controller
     
         return Redirect::to('productos');
     }
-
-  
-
-
 
 
     // Metodo CRUD para cliente
@@ -118,6 +138,16 @@ class TiendaController extends Controller
     }
     
     public function storeCliente(Request $request) {
+
+        $validatedData = $request->validate([
+            'nombre' => 'required|max:200', 
+            'apellidos' => 'required|max:200', 
+            'dni' => 'required|max:20', 
+            'direccion' => 'required|max:255', 
+            'telefono' => 'required|numeric|min:100000000|max:999999999',
+            'email' => 'required|email', 
+        ]);
+
         $cliente =New Cliente();
         $cliente->nombre = $request->nombre;
         $cliente->apellidos = $request->apellidos;
@@ -139,6 +169,15 @@ class TiendaController extends Controller
     
     public function updateCliente(Request $request, $id) {
         $cliente=Cliente::find($id);
+
+        $validatedData = $request->validate([
+            'nombre' => 'required|max:255', 
+            'apellidos' => 'required|max:255', 
+            'dni' => 'required|max:20', 
+            'direccion' => 'required|max:255',
+            'telefono' => 'required|numeric|min:100000000|max:999999999', 
+            'email' => 'required|email', 
+        ]);
         $cliente->nombre = $request->nombre;
         $cliente->apellidos = $request->apellidos;
         $cliente->dni = $request->dni;
