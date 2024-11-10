@@ -12,6 +12,8 @@ use App\Exports\ClienteExport;
 use App\Exports\AsignacionExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CotroladorEmail;
 
 class TiendaController extends Controller
 {
@@ -262,5 +264,44 @@ class TiendaController extends Controller
         return Excel::download(new AsignacionExport, 'asignaciones.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
+
+
+     //usuario
+    public function indexPortada() {
+
+        // coger tres productos 
+        $productos = Producto::take(3)->get(); 
+        return view('usuario.index', [
+            'productos' => $productos,
+        ]);
+    }
+
+    public function catalogo()
+    {
+        $productos = Producto::all();
+        return view('usuario.catalogo', [
+            'productos' => $productos,
+        ]);
+    }
+
+    // Vista para crear y guardar un cliente
+    public function createFormulario() {
+        return view('usuario.create');
+    }
+
+    public function storeFormulario(Request $request)
+    {
+        // Validar los datos 
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'correo'=>'required|email',
+            'mensaje' => 'required|string',
+        ]);
+
+        // Enviar el correo 
+        Mail::to('usuari0@gmail.com')->send(new CotroladorEmail($request->nombre, $request->correo ,$request->mensaje));
+
+        return Redirect::to('formulario')->with('success', 'Tu mensaje ha sido enviado correctamente');
+    }
 
 }

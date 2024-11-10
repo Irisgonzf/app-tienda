@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use App\Mail\ControladorEmail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,3 +42,11 @@ Route::post('asignaciones', [\App\Http\Controllers\TiendaController::class, 'sto
 Route::get('producto', [\App\Http\Controllers\TiendaController::class, 'exportProductos'])->name('productos.export');
 Route::get('cliente', [\App\Http\Controllers\TiendaController::class, 'exportClientes'])->name('clientes.export');
 Route::get('asignacion', [\App\Http\Controllers\TiendaController::class, 'exportAsignaciones'])->name('asignaciones.export');
+
+
+
+//Lo que ve el usuario
+Route::get('/index', [\App\Http\Controllers\TiendaController::class, 'indexPortada'])->name('usuario.index');
+Route::get('/catalogo', [\App\Http\Controllers\TiendaController::class, 'catalogo'])->name('usuario.catalogo');
+Route::get('/formulario', [\App\Http\Controllers\TiendaController::class, 'createFormulario'])->name('formulario.create');
+Route::post('/formulario', [\App\Http\Controllers\TiendaController::class, 'storeFormulario'])->name('formulario.store');
