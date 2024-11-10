@@ -1,0 +1,37 @@
+Productos para insertar en la API tiene que ser de uno en uno
+
+{
+  "nombre": "Muñeca de trapo",
+  "descripcion": "Muñeca de tela suave con vestido colorido",
+  "cantidad": 30
+}
+
+{
+  "nombre": "Camión de construcción",
+  "descripcion": "Camión de juguete amarillo con brazo de excavadora",
+  "cantidad": 15
+}
+
+{
+  "nombre": "Puzle de animales",
+  "descripcion": "Rompecabezas de madera con figuras de animales",
+  "cantidad": 40
+}
+
+{
+  "nombre": "Pelota de playa",
+  "descripcion": "Pelota inflable con colores brillantes",
+  "cantidad": 50
+}
+
+{
+  "nombre": "Auto de carrera",
+  "descripcion": "Auto deportivo de juguete a fricción, color rojo",
+  "cantidad": 20
+}
+{
+  "nombre": "Rompecabezas 3D",
+  "descripcion": "Rompecabezas en 3D del sistema solar",
+  "cantidad": 10
+}
+
